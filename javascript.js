@@ -60,6 +60,15 @@ switch(playerSelection){
         }
 }
 }
+
+
+function game(){
+for (let i = 0; i < 5; i++) {
 const computerSelection = getComputerChoice();
 const playerSelection= (prompt('select rock, paper or scissors')).toLowerCase()
 console.log(playRound(playerSelection, computerSelection))
+
+ }
+}
+
+game()
