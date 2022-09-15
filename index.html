@@ -3,9 +3,41 @@
 <head>
     <meta charset="utf-8">
     <title>rock paper scissors game</title>
-    <script src="javascript.js"></script>
+    <script src="javascript.js" defer></script>
+    <link rel="stylesheet" href="style.css" >
 <body>
 
+    <div id="container">
+        <div id="finalScoreContainer"></div>
+        <div id="gameContainer">  
+            <div class="scores">
     
+            </div>
+            <div class="playerChoice">
+                <button class="selectRPS">paper</button>
+                <button class="selectRPS">scissors</button>
+                <button class="selectRPS">rock</button>
+            </div>
+            <div class="game">
+                <div id="playerSide">
+                   <div id="paper"><img src="./images/paper.png" height="80px"></div>
+                   <div id="scissors"><img src="./images/scissors.png"  height="80px"></div>
+                   <div id="rock"><img src="./images/rock.png"height="80px" ></div>
+                </div> 
+                <div id="enemySide">
+                    <div id="comppaper"><img src="./images/paper.png" height="80px"></div>
+                    <div id="compscissors"><img src= "./images/scissors.png" height="80px"></div>
+                    <div id="comprock"><img src="./images/rock.png" height="80px"></div>
+                </div>
+            </div>
+            <div class="scores">
+                <img src="../../Downloads/kissclipart-cancel-icon-circle-icon-close-icon-264e589c47a90fcf.png" height="70px" >
+            </div>
+        </div>
+        <div id="gameLog"> 
+        </div>
+    </div>
+    
+  
 </body>
 </html>
