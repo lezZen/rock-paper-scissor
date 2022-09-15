@@ -7,8 +7,6 @@ function finalscore(){
     let timesLost = logString.match(/lose/g);
     timesWon = timesWon === null ? '': timesWon;
     timesLost = timesLost === null ? '': timesLost;
-    console.log(timesWon)
-    console.log(timesLost)
     while(timesWon.length == timesLost.length){
         return
     }
