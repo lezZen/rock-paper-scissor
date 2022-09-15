@@ -1,18 +1,23 @@
-
 let scoreslog = [];
+//Gets call when 5 rounds has been played, if its a draw keeps playing till there is a winner
 function finalscore(){
-    if(scoreslog.length == 5){
+    if(scoreslog.length >= 5){
     let logString = scoreslog.join(' ')
     let timesWon = logString.match(/win/g);
     let timesLost = logString.match(/lose/g);
-    timesWon = timesWon === null ? 0: timesWon;
-    timesLost = timesLost === null ? 0: timesLost;
+    timesWon = timesWon === null ? '': timesWon;
+    timesLost = timesLost === null ? '': timesLost;
+    console.log(timesWon)
+    console.log(timesLost)
+    while(timesWon.length == timesLost.length){
+        return
+    }
 if (timesWon.length > timesLost.length){ 
-    gameResult.textContent= 'you won the game, congratulations! you are awesome'
+    gameResult.textContent= 'You won the game, congratulations! you are awesome'
 }else if(timesWon.length < timesLost.length){
-    gameResult.textContent = 'you lost the game, thats so sad but you can try again!'
+    gameResult.textContent = 'You lost the game, thats so sad but you can try again!'
 }else { 
-    gameResult.textContent = 'the game its a draw!'
+    gameResult.textContent = 'The game its a draw!'
 }
 
 buttons.forEach(b => b.disabled = true);
@@ -23,58 +28,53 @@ document.querySelector('#finalScoreContainer').appendChild(TryAgain)
 }
 
 }
-//plays a round, gets playerselection from the text of the button clicked
+//plays a round, gets playerselection from the text of the button clicked 
 function playRound(playerSelection, computerSelection){
-    switch(playerSelection){
+     switch(playerSelection){
         case "Pick rock":
             if(computerSelection == 0){
                 document.querySelector('.scores').insertAdjacentHTML('beforeend', '<img src="./images/lose.png" height="70px">')
                 document.querySelector('div ~ .scores').insertAdjacentHTML('beforeend', '<img src="./images/win.png" height="70px">')
-                result =  `you lose this round, paper beats rock`
+                result =  `You lose this round, paper beats rock`
             }else if(computerSelection == 1){
                 document.querySelector('.scores').insertAdjacentHTML('beforeend', '<img src="./images/win.png" height="70px">')
                 document.querySelector('div ~ .scores').insertAdjacentHTML('beforeend', '<img src="./images/lose.png" height="70px">')
-                result = `you win this round, rock beats scissor`
+                result = `You win this round, rock beats scissor`
             }else{ document.querySelectorAll('.scores').forEach(b => b.insertAdjacentHTML('beforeend', '<img src="./images/minus.png" height="60px">'))
-                result =  'this round is a tie!' }
+                result =  'This round is a tie!' }
             break;
 
         case 'Pick scissors':
            if(computerSelection == 2){ 
                 document.querySelector('.scores').insertAdjacentHTML('beforeend', '<img src="./images/lose.png" height="70px">')
                 document.querySelector('div ~ .scores').insertAdjacentHTML('beforeend', '<img src="./images/win.png" height="70px">')
-                result =  `you lose this round, rock beats scissors`
+                result =  `You lose this round, rock beats scissors`
             }else if(computerSelection == 0){
                 document.querySelector('.scores').insertAdjacentHTML('beforeend', '<img src="./images/win.png" height="70px">')
                 document.querySelector('div ~ .scores').insertAdjacentHTML('beforeend', '<img src="./images/lose.png" height="70px">')
-                result = `you win this round, scissors beats paper`
+                result = `You win this round, scissors beats paper`
             }else{ document.querySelectorAll('.scores').forEach(b => b.insertAdjacentHTML('beforeend', '<img src="./images/minus.png" height="60px">'))
-                result =  'this round is a tie!'}
+                result =  'This round is a tie!'}
             break;
 
         case 'Pick paper':
            if(computerSelection == 1){ 
                 document.querySelector('.scores').insertAdjacentHTML('beforeend', '<img src="./images/lose.png" height="70px">')
                 document.querySelector('div ~ .scores').insertAdjacentHTML('beforeend', '<img src="./images/win.png" height="70px">')
-                result =  `you lose this round, scissors beats paper`
+                result =  `You lose this round, scissors beats paper`
            }else if(computerSelection == 2){
                 document.querySelector('.scores').insertAdjacentHTML('beforeend', '<img src="./images/win.png" height="70px">')
                 document.querySelector('div ~ .scores').insertAdjacentHTML('beforeend', '<img src="./images/lose.png" height="70px">')
-                result =  `you win this round, paper beats rock`
+                result =  `You win this round, paper beats rock`
            }else{ document.querySelectorAll('.scores').forEach(b => b.insertAdjacentHTML('beforeend', '<img src="./images/minus.png" height="60px">'))
-                result = 'this round is a tie!'}
+                result = 'This round is a tie!'}
             
     }
     
-    scoreslog.push(result);
-   finalscore()
+   scoreslog.push(result);
+   finalscore()                         //adds the result to the gameLog
    scoresP.innerHTML += result + "<br>"
     }   
-//buttons animation effect
-const buttons = document.querySelectorAll('button');  
-buttons.forEach(b => b.addEventListener('mouseover', e => e.target.classList.add('mouseon')))
-buttons.forEach(b => b.addEventListener('mouseout', e => e.target.classList.remove('mouseon')))
-
 //pushes the player choice
 function movePlayerChoice(e){                        
 const paper= document.querySelector('#paper');
@@ -128,7 +128,7 @@ function moveComputerChoice(e){
         getComputerChoice(e)
     }
 }
-// restore the player last choice to the start point if they're moved and runs computer side
+// restore the player and the computer last choice to the start point if they're moved
 function useChoice(e){      
     moveComputerChoice(e)
     if (paper.classList.contains('toend')){ 
@@ -144,8 +144,13 @@ function useChoice(e){
         movePlayerChoice(e)
     } 
 }
+//buttons animation effect
+const buttons = document.querySelectorAll('button');  
+buttons.forEach(b => b.addEventListener('mouseover', e => e.target.classList.add('mouseon')))
+buttons.forEach(b => b.addEventListener('mouseout', e => e.target.classList.remove('mouseon')))
 
-buttons.forEach(b => b.addEventListener('click', useChoice));//begins the match when clicking button
+//begins the match when clicking button
+buttons.forEach(b => b.addEventListener('click', useChoice));
 
 //try again button
 function restart(){
