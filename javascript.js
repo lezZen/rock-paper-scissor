@@ -8,9 +8,9 @@ function finalscore(){
     timesWon = timesWon === null ? 0: timesWon;
     timesLost = timesLost === null ? 0: timesLost;
 if (timesWon.length > timesLost.length){ 
-    gameResult.textContent= 'you won the game, congratulations!'
+    gameResult.textContent= 'you won the game, congratulations! you are awesome'
 }else if(timesWon.length < timesLost.length){
-    gameResult.textContent = 'you lost the game, try again!'
+    gameResult.textContent = 'you lost the game, thats so sad but you can try again!'
 }else { 
     gameResult.textContent = 'the game its a draw!'
 }
@@ -26,22 +26,43 @@ document.querySelector('#finalScoreContainer').appendChild(TryAgain)
 //plays a round, gets playerselection from the text of the button clicked
 function playRound(playerSelection, computerSelection){
     switch(playerSelection){
-        case "rock":
-            if(computerSelection == 0)result =  `you lose, paper beats ${playerSelection}`
-            else if(computerSelection == 1)result = `you win, ${playerSelection} beats scissor`
-            else result =  'its a tie!'
+        case "Pick rock":
+            if(computerSelection == 0){
+                document.querySelector('.scores').insertAdjacentHTML('beforeend', '<img src="./images/lose.png" height="70px">')
+                document.querySelector('div ~ .scores').insertAdjacentHTML('beforeend', '<img src="./images/win.png" height="70px">')
+                result =  `you lose this round, paper beats rock`
+            }else if(computerSelection == 1){
+                document.querySelector('.scores').insertAdjacentHTML('beforeend', '<img src="./images/win.png" height="70px">')
+                document.querySelector('div ~ .scores').insertAdjacentHTML('beforeend', '<img src="./images/lose.png" height="70px">')
+                result = `you win this round, rock beats scissor`
+            }else{ document.querySelectorAll('.scores').forEach(b => b.insertAdjacentHTML('beforeend', '<img src="./images/minus.png" height="60px">'))
+                result =  'this round is a tie!' }
             break;
 
-        case 'scissors':
-           if(computerSelection == 2)result =  `you lose, rock beats ${playerSelection}`
-            else if(computerSelection == 0)result = `you win, ${playerSelection} beats paper`
-            else result =  'its a tie!'
+        case 'Pick scissors':
+           if(computerSelection == 2){ 
+                document.querySelector('.scores').insertAdjacentHTML('beforeend', '<img src="./images/lose.png" height="70px">')
+                document.querySelector('div ~ .scores').insertAdjacentHTML('beforeend', '<img src="./images/win.png" height="70px">')
+                result =  `you lose this round, rock beats scissors`
+            }else if(computerSelection == 0){
+                document.querySelector('.scores').insertAdjacentHTML('beforeend', '<img src="./images/win.png" height="70px">')
+                document.querySelector('div ~ .scores').insertAdjacentHTML('beforeend', '<img src="./images/lose.png" height="70px">')
+                result = `you win this round, scissors beats paper`
+            }else{ document.querySelectorAll('.scores').forEach(b => b.insertAdjacentHTML('beforeend', '<img src="./images/minus.png" height="60px">'))
+                result =  'this round is a tie!'}
             break;
 
-        case 'paper':
-          if(computerSelection == 1) result =  `you lose, scissors beats ${playerSelection}`
-            else if(computerSelection == 2)result =  `you win, ${playerSelection} beats rock`
-            else result = ' its a tie!'
+        case 'Pick paper':
+           if(computerSelection == 1){ 
+                document.querySelector('.scores').insertAdjacentHTML('beforeend', '<img src="./images/lose.png" height="70px">')
+                document.querySelector('div ~ .scores').insertAdjacentHTML('beforeend', '<img src="./images/win.png" height="70px">')
+                result =  `you lose this round, scissors beats paper`
+           }else if(computerSelection == 2){
+                document.querySelector('.scores').insertAdjacentHTML('beforeend', '<img src="./images/win.png" height="70px">')
+                document.querySelector('div ~ .scores').insertAdjacentHTML('beforeend', '<img src="./images/lose.png" height="70px">')
+                result =  `you win this round, paper beats rock`
+           }else{ document.querySelectorAll('.scores').forEach(b => b.insertAdjacentHTML('beforeend', '<img src="./images/minus.png" height="60px">'))
+                result = 'this round is a tie!'}
             
     }
     
@@ -135,6 +156,9 @@ function restart(){
     document.querySelector('#finalScoreContainer').removeChild(TryAgain);
     document.querySelector('#finalScoreContainer').removeChild(gameResult);
     scoresP.textContent= ''
+    document.querySelectorAll('.scores').forEach(function(b){ while(b.hasChildNodes()){
+        b.removeChild(b.firstChild)
+    }})
 }
 const TryAgain= document.createElement('button');
 TryAgain.textContent ='Wanna Try again?';
